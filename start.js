@@ -340,6 +340,33 @@ app.get("/getPlacholder/:config?/:background?/:foreground?/:text?/:wait?", (req,
         }
     }, wait)
 })
+//profile
+app.get("/getProfile/:gender?/:wait?", (req, res) => {
+    const wait = Number(req.params.wait) || 0
+    setTimeout(() => {
+        try {
+            var name
+            var length = 99
+            switch (req.params.gender || "default") {
+                case 'f':
+                    name = 'women'; break;
+                case 'm':
+                    name = 'men'; break;
+                case 'l':
+                    name = 'lego'; length = 9; break;
+                default:
+                    name = random(1) ? 'women' : 'men'
+
+            }
+            res.redirect(`https://randomuser.me/api/portraits/${name}/${random(length, 0)}.jpg`)
+        } catch (error) {
+            res.send({
+                success: false,
+                error
+            })
+        }
+    }, wait)
+})
 //coustom
 app.post("/coustom/:wait?", (req, res) => {
     const wait = Number(req.params.wait) || 0
