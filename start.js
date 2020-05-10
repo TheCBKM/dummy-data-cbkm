@@ -326,6 +326,20 @@ app.post("/getPic/:wait?", (req, res) => {
     }, wait)
 })
 
+//Placeholders
+app.get("/getPlacholder/:config?/:background?/:foreground?/:text?/:wait?", (req, res) => {
+    const wait = Number(req.params.wait) || 0
+    setTimeout(() => {
+        try {
+            res.redirect(`https://via.placeholder.com/${req.params.config !== "_" ? req.params.config : 150 || 150}/${req.params.background !== '_' ? req.params.background : "#cccccc" || "#cccccc"}/${req.params.foreground !== "_" ? req.params.foreground : "#969696" || "#969696"}/?text=${req.params.text || ""}`)
+        } catch (error) {
+            res.send({
+                success: false,
+                error
+            })
+        }
+    }, wait)
+})
 //coustom
 app.post("/coustom/:wait?", (req, res) => {
     const wait = Number(req.params.wait) || 0
